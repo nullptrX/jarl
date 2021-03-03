@@ -15,7 +15,7 @@ limitations under the License.
 */
 package main
 
-import "github.com/devcsrj/jarl/cli/cmd"
+import cmd "github.com/devcsrj/jarl/cli/alfred"
 
 func main() {
 	cmd.Execute()

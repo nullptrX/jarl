@@ -22,6 +22,7 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
 	"strconv"
 )
 
@@ -65,17 +66,31 @@ type ArtifactApi interface {
 
 // Implementation for fetching artifacts from https://mvnrepository.com
 type Mvnrepository struct {
-	url string
+	url    string
+	client *http.Client
 }
 
-func (e *Mvnrepository) Init(url string) {
-	e.url = url
+func (e *Mvnrepository) Init(path string) {
+	e.url = path
+
+	proxy := os.Getenv("PROXY")
+	if len(proxy) == 0 {
+		e.client = &http.Client{}
+	} else {
+
+		proxy := func(_ *http.Request) (*url.URL, error) {
+			return url.Parse(proxy)
+		}
+
+		transport := &http.Transport{Proxy: proxy}
+		e.client = &http.Client{Transport: transport}
+	}
 }
 
 func (e *Mvnrepository) SearchArtifacts(q string, page int) SearchResults {
 	query := url.QueryEscape(q)
 	path := fmt.Sprintf("/search?q=%s&p=%d&sort=relevance", query, page)
-	resp, err := http.Get(e.url + path)
+	resp, err := e.client.Get(e.url + path)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -113,7 +128,7 @@ func (e *Mvnrepository) SearchArtifacts(q string, page int) SearchResults {
 
 func (e *Mvnrepository) GetArtifactDetails(group string, id string) Details {
 	path := fmt.Sprintf("/artifact/%s/%s", group, id)
-	resp, err := http.Get(e.url + path)
+	resp, err := e.client.Get(e.url + path)
 	if err != nil {
 		log.Fatal(err)
 	}

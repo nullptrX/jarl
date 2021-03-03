@@ -38,7 +38,7 @@ func (m MavenImportStyle) Apply(artifact Artifact, version Version) string {
 type GradleImportStyle struct{}
 
 func (g GradleImportStyle) Apply(artifact Artifact, version Version) string {
-	return fmt.Sprintf(`implementation("%s:%s:%s")`, artifact.Group, artifact.Id, version.Value)
+	return fmt.Sprintf(`implementation "%s:%s:%s"`, artifact.Group, artifact.Id, version.Value)
 }
 
 // https://www.scala-sbt.org

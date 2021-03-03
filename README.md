@@ -1,34 +1,32 @@
 # Jarl
 
-![License](https://img.shields.io/github/license/devcsrj/jarl)
-![Version](https://img.shields.io/github/v/release/devcsrj/jarl)
+![License](https://img.shields.io/github/license/nullptrX/jarl)
+![Version](https://img.shields.io/github/v/release/nullptrX/jarl)
 
-> Locate jar coordinates right from your terminal.
+> Locate jar coordinates right from your Alfred and Terminal.
 
 ![Jarl](docs/demo.gif)
+<img src="https://cdn.jsdelivr.net/gh/nullptrX/assets/images/20210303192635.gif"/>
 
 No need to browse [mvnrepository.com](https://mvnrepository.com).
 
+Workflow for Alfred 4.
+
 ## Installation
 
-### OSX
-- Homebrew
-    ```shell script
-    $ brew install devcsrj/homebrew-tap/jarl
-    ```
+  ```shell script
+  go build -o jarl github.com/devcsrj/jarl/cli
+  ```
 
-### Windows
-- Scoop
-    ```shell script
-    $ scoop bucket add devcsrj https://github.com/devcsrj/scoop-bucket
-    $ scoop install jarl
-    ```
+## Usage for Workflow
+Download [Maven Querier](workflow/Maven%20Querier.alfredworkflow) and open it. (Make sure you have installed Alfred 4.)
 
-### Linux
-- `rpm` and `deb` binaries are available at [releases](https://github.com/devcsrj/jarl/releases)
+Type `mvn`, and your query, to search for java libraries at maven central repository.
 
-## FAQ
+Select a item and press <kbd>Enter</kbd> to copy gradle dependency to clipboard.
 
-### Jarl?
+Hold <kbd>Command</kbd> and press <kbd>Enter</kbd> to select other style's dependency to clipboard.
 
-[Yup.](https://vignette.wikia.nocookie.net/elderscrolls/images/e/ed/Jarl2.png)
+## Config
+
+<img src="https://cdn.jsdelivr.net/gh/nullptrX/assets/images/20210303194831.png"/>
